@@ -1,0 +1,819 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+/* CSS Variables for color palette */
+:root {
+  --color1: #705D53; /* Deep Cocoa (Main Nav/Footer) */
+  --color2: #B59077; /* Toasted Almond (Accents) */
+  --color3: #4E3F36; /* Espresso (Main Text) */
+  --color4: #A67C52; /* Golden Crust (Buttons/Hover) */
+  --color5: #F9F4F0; /* Off-White/Parchment (Header Text) */
+}
+/* General Styles */
+/* Updated Body for a "Fresh Deli" Feel */
+
+html {
+  /* This creates the blurred image effect on the very back layer */
+  background: linear-gradient(rgba(78, 63, 54, 0.4), rgba(78, 63, 54, 0.4)), 
+              url('images/f1.png'); /* You can change f1.png to your favorite sub photo */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  height: 100%;
+}
+
+html::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: inherit; /* Pulls the image from the html background */
+  filter: blur(15px) brightness(0.8); /* This creates that soft "side" look */
+  transform: scale(1.1); /* Prevents white edges caused by the blur */
+  z-index: -1;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0 auto; /* Centers the bar */
+  padding: 0;
+  
+  /* This is the "Pillar" */
+  width: 100%;
+  max-width: 1200px; /* Adjust this to make the center bar wider or thinner */
+  
+  /* The color of your current background */
+  background: linear-gradient(145deg, #ffffff 0%, #f7f3f0 50%, #eee5de 100%);
+  color: var(--color3);
+  
+  min-height: 100vh;
+  box-shadow: 0 0 50px rgba(0,0,0,0.3); /* Adds depth so the bar "lifts" off the blur */
+  position: relative;
+  backdrop-filter: blur(10px); /* Optional: adds a slight frost effect to the edges */
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  /* Adds a subtle "glow" of warm brown in the corners instead of green */
+  background-image: 
+    radial-gradient(circle at 10% 10%, rgba(181, 144, 119, 0.1) 0%, transparent 40%),
+    radial-gradient(circle at 90% 90%, rgba(112, 93, 83, 0.05) 0%, transparent 50%);
+  opacity: 1;
+}
+
+/* Optional: Paper Texture Overlay */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  opacity: 0.03; /* Keep this very low! */
+  pointer-events: none;
+  background-image: url("https://www.transparenttextures.com/patterns/p6.png");
+  z-index: 0;
+}
+
+main, .hero, .gallery, .place-gallery, .contact-main, .reviews {
+  position: relative;
+  z-index: 1;
+}
+
+nav {
+  background-color: var(--color1);
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+nav, footer {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+nav h1 {
+  margin: 0;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: var(--color5); /* Changed to Light Parchment */
+  letter-spacing: 1px;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+nav ul li {
+  margin-left: 20px;
+}
+
+nav ul li a {
+  color: var(--color5); /* Changed to Light Parchment */
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+  opacity: 0.9; /* Slightly softer than pure white */
+}
+
+nav ul li a:hover {
+  color: var(--color4); /* Highlights to Golden Crust on hover */
+  opacity: 1;
+}
+
+footer {
+  background-color: var(--color1);
+  padding: 15px;
+  text-align: center;
+  color: var(--color5);
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+}
+
+footer p {
+  margin: 0;
+}
+
+/* Home Page Styles */
+  /* .hero {
+    background: linear-gradient(rgba(78, 63, 54, 0.6), rgba(78, 63, 54, 0.6)), url('images/home1.png');
+    background-size: cover;
+    background-position: center;
+    color: var(--color5);
+    padding: 80px 20px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .hero-content {
+    max-width: 900px;
+    background: rgba(255, 255, 255, 0.9); 
+    color: var(--color3);
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  } */
+
+  .hero {
+  position: relative;
+  height: 80vh; /* Set a specific height for the hero area */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0; /* Remove padding since images fill the space */
+  background: var(--color3); /* Fallback color */
+  width: 100%;
+  border-radius: 0;
+}
+
+.hero .slideshow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 0; /* Remove the old margin */
+  z-index: 1;
+}
+
+/* Add a dark tint over the slideshow so text is readable */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(78, 63, 54, 0.4); /* Subtle brown tint */
+  z-index: 2;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 3; /* Sit on top of the images and the tint */
+  max-width: 700px;
+  background: rgba(255, 255, 255, 0.92); /* Clean parchment-white card */
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  margin: 20px;
+}
+
+/* Ensure images cover the whole hero area */
+.slideshow img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+}
+
+.hero-content h2 {
+  font-size: clamp(2.5rem, 5vw, 4rem); /* Bigger, bolder title */
+  line-height: 1.1;
+  margin-bottom: 20px;
+  color: var(--color1); /* Deep Cocoa */
+}
+.hero-content p {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto 20px;
+}
+
+.hero-content .subline {
+  font-family: 'Poppins', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color4); /* Golden Crust accent */
+  border-top: 1px solid #eee5de;
+  padding-top: 15px;
+}
+
+/* Fade-in scroll reveal */
+.fade-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  will-change: opacity, transform;
+}
+
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hours-card {
+  background: transparent; /* Remove the white box */
+  border: none;
+  border-top: 2px dashed #eee5de; /* Add a "receipt" style divider */
+  margin-top: 30px;
+  padding-top: 20px;
+}
+
+.hours-card h3 {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.hours-card p {
+  margin: 4px 0;
+  color: #5a4638;
+}
+
+.slideshow {
+  width: 100%;
+  height: 500px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+
+.slideshow img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.slideshow img.active {
+  opacity: 1;
+}
+
+.food-descriptions {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 40px;
+  gap: 30px;
+}
+
+.food-item {
+  flex: 1 1 300px;
+  margin: 0;
+  text-align: center;
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+
+.food-item h3, .gallery-item h3 {
+  font-size: 1.4rem;
+  margin: 15px 0 5px;
+}
+
+.food-item:hover {
+  transform: translateY(-5px);
+}
+
+.food-item img {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  margin-bottom: 10px;
+  opacity: 0.8;
+  transition: opacity 0.5s;
+}
+
+.food-item:hover img {
+  opacity: 1;
+}
+
+/* .reviews {
+  padding: 50px;
+  background-color: #ede0d4; 
+  margin-top: 40px;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 16px;
+} */
+
+.reviews h2 {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+/* .review {
+  background-color: white;
+  padding: 30px;
+  margin-bottom: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+} */
+
+/* Modern Reviews Section */
+.reviews-section {
+  padding: 80px 20px;
+  background-color: #fdfaf7; /* Very soft parchment tan */
+  text-align: center;
+}
+
+.reviews-section h2 {
+  font-size: 2.2rem;
+  color: var(--color3);
+  margin-bottom: 40px;
+  position: relative;
+}
+
+/* Creating a 3-column grid for the cards */
+.reviews-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.review-card {
+  background: #ffffff;
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(112, 93, 83, 0.08); /* Soft brown shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-bottom: 4px solid var(--color2); /* Toasted brown accent line */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+}
+
+.review-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 45px rgba(112, 93, 83, 0.15);
+}
+
+.stars {
+  color: #d4a373; /* Golden-brown stars */
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+.review-text {
+  font-style: italic;
+  font-size: 1rem;
+  color: #5a4638;
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+.review-text strong {
+  color: var(--color1);
+  font-weight: 600;
+}
+
+.reviewer-name {
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color1);
+  margin: 0;
+}
+
+/* Responsive fix for smaller screens */
+@media (max-width: 600px) {
+  .reviews-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.review:hover {
+  transform: translateY(-3px);
+}
+
+.videos {
+  padding: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.video {
+  margin: 10px;
+  cursor: pointer;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  background: white;
+  padding: 0;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.video:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.video video {
+  display: block;
+  width: 350px;
+  height: 300px;
+  object-fit: cover;
+}
+
+.video p {
+  margin: 10px 0 0 0;
+  font-size: 12px;
+  color: var(--color3);
+  font-weight: 500;
+}
+
+/* Video Modal */
+.video-modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  animation: fadeIn 0.3s;
+}
+
+.video-modal.active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.video-modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.video-modal-content video {
+  width: 100%;
+  height: auto;
+  max-width: 1000px;
+  max-height: 600px;
+}
+
+.close-modal {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  font-size: 32px;
+  font-weight: bold;
+  color: var(--color3);
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.close-modal:hover {
+  color: var(--color4);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Food Showcase Styles */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+  padding: 50px;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.gallery-item {
+  text-align: left;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.07);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.gallery-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 26px rgba(0,0,0,0.12);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.gallery-item p {
+  margin: 0;
+  color: #4e3f36;
+  font-weight: 600;
+}
+
+.gallery h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+
+.gallery-item {
+  text-align: center;
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+
+.gallery-item:hover {
+  transform: translateY(-5px);
+}
+
+.gallery-item img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  border-radius: 5px;
+}
+
+.menu {
+  text-align: center;
+  padding: 50px;
+  margin-top: 40px;
+}
+
+.menu img {
+  max-width: 100%;
+}
+
+/* Place Showcase Styles */
+.place-gallery {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+  padding: 50px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* .place-gallery-item {
+  text-align: left;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  transition: transform 0.3s, box-shadow 0.3s;
+} */
+
+.place-gallery-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 26px rgba(0,0,0,0.16);
+}
+
+/* .place-gallery-item img {
+  width: 100%;
+  height: auto;
+  box-shadow: inset 0 0 0 0 rgba(0,0,0,0.1);
+  border-radius: 10px;
+  margin-bottom: 12px;
+} */
+
+.place-gallery-item {
+  background: #ffffff;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(112, 93, 83, 0.1);
+  overflow: hidden; /* Keeps the zoom contained */
+  border: 1px solid #eee5de;
+}
+
+.place-gallery-item .image-container {
+  width: 100%;
+  height: auto; /* Changed from 300px */
+  overflow: hidden;
+  border-radius: 8px;
+  background-color: #f7f3f0;
+  position: relative;
+  line-height: 0; /* Removes tiny gap at the bottom of images */
+}
+
+.place-gallery-item img {
+  width: 100%;
+  height: auto; /* Changed from 100% */
+  display: block;
+  filter: blur(1px) sepia(20%) contrast(90%);
+  transition: filter 0.4s ease, transform 0.6s ease;
+}
+
+/* When the user hovers, the image "wakes up" */
+.place-gallery-item:hover img {
+  filter: blur(0) sepia(0) contrast(100%);
+  transform: scale(1);
+}
+
+/* Adding a subtle vignette overlay to hide corner pixelation */
+.place-gallery-item .image-container::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, transparent 60%, rgba(78, 63, 54, 0.2) 100%);
+  pointer-events: none;
+}
+
+.place-gallery-item p {
+  margin: 0;
+  color: #4e3f36;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+
+.place-gallery-item {
+  text-align: left;
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+
+.place-page-header {
+  max-width: 900px;
+  margin: 40px auto 30px;
+  text-align: center;
+  padding-top: 20px;
+}
+
+.place-page-header h2 {
+  margin: 0 0 12px;
+}
+
+.place-page-header p {
+  margin: 0;
+  color: #5a4638;
+  font-weight: 500;
+}
+
+.place-gallery-item:hover {
+  transform: translateY(-5px);
+}
+
+.place-gallery-item img {
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  border-radius: 5px;
+}
+
+/* Contact Page Styles */
+.contact-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px 40px;
+}
+
+.contact-panel,
+.contact-map {
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.09);
+  padding: 30px;
+}
+
+.contact-panel h2 {
+  margin-top: 0;
+}
+
+.contact-info-card p {
+  margin: 8px 0;
+  font-size: 1rem;
+}
+
+.contact-form {
+  margin-top: 20px;
+  display: grid;
+  gap: 15px;
+}
+
+.contact-form label {
+  font-weight: 600;
+  color: #705d53;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.95rem;
+}
+
+.contact-form button {
+  background: var(--color1);
+  color: var(--color5);
+  border: none;
+  border-radius: 8px;
+  padding: 12px 18px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.contact-form button:hover {
+  background: #9a6d55;
+}
+
+.form-feedback {
+  margin: 0;
+  color: #2a662d;
+  font-weight: 600;
+  min-height: 20px;
+}
+
+.contact-map h3 {
+  margin-top: 0;
+}
+
+@media (max-width: 980px) {
+  .contact-main {
+    display: block;
+    margin: 20px auto;
+  }
+  .contact-panel,
+  .contact-map {
+    margin-bottom: 20px;
+  }
+}
+
+.contact-details h2 {
+  color: var(--color3);
+}
+
+.contact-details p {
+  margin: 10px 0;
+}
